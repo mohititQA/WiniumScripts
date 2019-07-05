@@ -22,6 +22,8 @@ public class class1 {
 	static WiniumDriverService service;
 	static int number1,number2=0;
 	static int result = 0;
+	static int length1;
+	static int length2;
 	
 	public static void setupEnvironment() throws IOException, InterruptedException, AWTException
 	{
@@ -54,25 +56,52 @@ public class class1 {
 	
 	public static void Sum(int number1,int number2)
 	{
-		driver.findElement(By.id("num"+number1+"Button")).click();
+		 length1 = String.valueOf(number1).length();
+		 length2 = String.valueOf(number2).length();
+		 String number3 = String.valueOf(number1);
+		 String number4 = String.valueOf(number2);
+	  	  char[] digits1 = number3.toCharArray();
+	  	  char[] digits2 = number4.toCharArray();
+	  	 for (int i = 0 ; i<length1 ;i++)
+	  	   {
+	  		 driver.findElement(By.id("num"+digits1[i]+"Button")).click();
+	  	   }
+		
 		driver.findElement(By.name("Plus")).click();
-		driver.findElement(By.id("num"+number2+"Button")).click();
+		 for (int i = 0 ; i<length1 ;i++)
+	  	   {
+	  		 driver.findElement(By.id("num"+digits2[i]+"Button")).click();
+	  	   }
+	
 		driver.findElement(By.name("Equals")).click();
 		String output = driver.findElement(By.id("CalculatorResults")).getAttribute("Name");
 		
 		String [] result = output.split(" ");
+		
 		int expectedResult = number1+number2;
 		//verifying the expected and actual output 
-		Assert.assertEquals(expectedResult,Integer.parseInt(result[2]),"Output is matching.");
+		Assert.assertEquals(expectedResult,Integer.parseInt(result[2].replaceAll(",", "")),"Output is matching.");
 		
 		
 	}
 	public static void Divion(int number1,int number2)
 	{
-		driver.findElement(By.name("Clear")).click();
-		driver.findElement(By.id("num"+number1+"Button")).click();
+		 driver.findElement(By.name("Clear")).click();
+		 length1 = String.valueOf(number1).length();
+		 length2 = String.valueOf(number2).length();
+		 String number3 = String.valueOf(number1);
+		 String number4 = String.valueOf(number2);
+	  	  char[] digits1 = number3.toCharArray();
+	  	  char[] digits2 = number4.toCharArray();
+	  	 for (int i = 0 ; i<length1 ;i++)
+	  	   {
+	  		 driver.findElement(By.id("num"+digits1[i]+"Button")).click();
+	  	   }
 		driver.findElement(By.name("Divide by")).click();
-		driver.findElement(By.id("num"+number2+"Button")).click();
+		 for (int i = 0 ; i<length1 ;i++)
+	  	   {
+	  		 driver.findElement(By.id("num"+digits2[i]+"Button")).click();
+	  	   }
 		driver.findElement(By.name("Equals")).click();
 		String output = driver.findElement(By.id("CalculatorResults")).getAttribute("Name");
 		
@@ -91,16 +120,28 @@ public class class1 {
 	public static void Mod(int number1,int number2)
 	{
 		driver.findElement(By.name("Clear")).click();
-		driver.findElement(By.id("num"+number1+"Button")).click();
+		length1 = String.valueOf(number1).length();
+		 length2 = String.valueOf(number2).length();
+		 String number3 = String.valueOf(number1);
+		 String number4 = String.valueOf(number2);
+	  	  char[] digits1 = number3.toCharArray();
+	  	  char[] digits2 = number4.toCharArray();
+	  	 for (int i = 0 ; i<length1 ;i++)
+	  	   {
+	  		 driver.findElement(By.id("num"+digits1[i]+"Button")).click();
+	  	   }
 		driver.findElement(By.name("Modulo")).click();
-		driver.findElement(By.id("num"+number2+"Button")).click();
+		 for (int i = 0 ; i<length1 ;i++)
+	  	   {
+	  		 driver.findElement(By.id("num"+digits2[i]+"Button")).click();
+	  	   }
 		driver.findElement(By.name("Equals")).click();
 		String output = driver.findElement(By.id("CalculatorResults")).getAttribute("Name");
 	
 		String [] result = output.split(" ");
 		int expectedResult = number1%number2;
 		//verifying the expected and actual output 
-		Assert.assertEquals(expectedResult,Integer.parseInt(result[2]),"Output is matching.");
+		Assert.assertEquals(expectedResult,Integer.parseInt(result[2].replaceAll(",", "")),"Output is matching.");
 
 		//System.out.println("The output of the mod  is  : "+result);
 	}
@@ -108,7 +149,17 @@ public class class1 {
 	public static void Squareroot(int number1)
 	{
 		driver.findElement(By.name("Clear")).click();
-		driver.findElement(By.id("num"+number1+"Button")).click();
+		
+		length1 = String.valueOf(number1).length();
+		
+		 String number3 = String.valueOf(number1);
+		
+	  	  char[] digits1 = number3.toCharArray();
+	  	  
+	  	 for (int i = 0 ; i<length1 ;i++)
+	  	   {
+	  		 driver.findElement(By.id("num"+digits1[i]+"Button")).click();
+	  	   }
 		driver.findElement(By.name("Square root")).click();
 		driver.findElement(By.name("Square root")).click();
 		driver.findElement(By.name("Square root")).click();
@@ -139,5 +190,6 @@ public class class1 {
     	  Mod(number1,number2);
     	  Squareroot(number1);
     	    
+    	  
       }
 }
